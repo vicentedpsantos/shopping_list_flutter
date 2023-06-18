@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shopping_list/data/categories.dart';
+import 'package:shopping_list/validators/new_item.dart';
 
 class NewItem extends StatefulWidget {
   const NewItem({super.key});
@@ -26,9 +27,8 @@ class _NewItemState extends State<NewItem> {
                 decoration: const InputDecoration(
                   label: Text('Name'),
                 ),
-                validator: (value) {
-                  return 'Demo...';
-                },
+                validator: (value) =>
+                    const NewItemValidator().isValidName(value),
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -39,6 +39,8 @@ class _NewItemState extends State<NewItem> {
                         label: Text('quantity'),
                       ),
                       initialValue: '1',
+                      validator: (value) =>
+                          const NewItemValidator().isValidQuantity(value),
                     ),
                   ),
                   const SizedBox(
@@ -65,6 +67,20 @@ class _NewItemState extends State<NewItem> {
                       ],
                       onChanged: (value) {},
                     ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Reset'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('Add Item'),
                   ),
                 ],
               ),
