@@ -11,4 +11,13 @@ class GroceryItem {
   final String name;
   final int quantity;
   final Category category;
+
+  Map get toMap {
+    return {
+      'id': id,
+      'name': name,
+      'quantity': quantity,
+      'category': category.title
+    };
+  }
 }
