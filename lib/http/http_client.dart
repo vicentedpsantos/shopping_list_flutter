@@ -19,8 +19,8 @@ class HttpClient {
     logInfo('HttpClient', [
       'POST $baseUrl/$path',
       'params: $payload',
-      'Response Status: ${response.statusCode}',
-      'Response body: ${response.body}'
+      'response status: ${response.statusCode}',
+      'response body: ${response.body}'
     ]);
 
     return response;

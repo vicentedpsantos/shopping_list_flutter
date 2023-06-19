@@ -31,6 +31,12 @@ class _NewItemState extends State<NewItem> {
       );
 
       createGroceryItem(newItem);
+
+      if (!context.mounted) {
+        return;
+      }
+
+      Navigator.of(context).pop();
     }
   }
 

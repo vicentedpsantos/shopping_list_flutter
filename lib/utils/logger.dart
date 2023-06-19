@@ -1,14 +1,10 @@
-import 'package:logging/logging.dart';
-
-final log = Logger('Logger');
+import 'package:intl/intl.dart';
 
 void logInfo(String origin, List<String> messages) {
-  Logger.root.level = Level.INFO;
-  Logger.root.onRecord.listen((record) {
-    print('${record.level.name}: ${record.time}: ${record.message}');
-  });
+  DateTime now = DateTime.now();
+  String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
 
   for (final message in messages) {
-    log.info('[$origin] $message');
+    print('[$formattedDate] [$origin] $message');
   }
 }
