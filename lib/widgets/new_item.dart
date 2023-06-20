@@ -24,7 +24,6 @@ class _NewItemState extends State<NewItem> {
       _formKey.currentState!.save();
 
       GroceryItem newItem = GroceryItem(
-        id: DateTime.now().toString(),
         name: _enteredName,
         quantity: _enteredQuantity,
         category: _selectedCategory,

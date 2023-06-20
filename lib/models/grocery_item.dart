@@ -1,11 +1,12 @@
+import 'package:uuid/uuid.dart';
 import 'package:shopping_list/models/category.dart';
+
+const uuid = Uuid();
 
 class GroceryItem {
   GroceryItem(
-      {required this.id,
-      required this.name,
-      required this.quantity,
-      required this.category});
+      {required this.name, required this.quantity, required this.category})
+      : id = uuid.v4();
 
   final String id;
   final String name;
