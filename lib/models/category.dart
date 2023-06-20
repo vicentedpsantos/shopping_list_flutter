@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list/data/categories.dart';
 
 enum Categories {
   vegetables,
@@ -18,4 +19,8 @@ class Category {
 
   final String title;
   final Color color;
+
+  static Category findByTitle(String title) => categories.values
+      .toList()
+      .firstWhere((category) => category.title == title);
 }

@@ -12,7 +12,7 @@ class GroceryList extends StatefulWidget {
 }
 
 class _GroceryListState extends State<GroceryList> {
-  final List<GroceryItem> _groceryItems = [];
+  List<GroceryItem> _groceryItems = [];
 
   @override
   void initState() {
@@ -22,18 +22,25 @@ class _GroceryListState extends State<GroceryList> {
 
   void _loadItems() async {
     final groceryItems = await getGroceryItems();
+    final builtGroceryItems = GroceryItem.buildgroceryItems(groceryItems);
 
-    print(groceryItems);
+    setState(() {
+      _groceryItems = builtGroceryItems;
+    });
   }
 
   void _addItem() async {
-    await Navigator.of(context).push<GroceryItem>(
+    final newItem = await Navigator.of(context).push<GroceryItem>(
       MaterialPageRoute(
         builder: (ctx) => const NewItem(),
       ),
     );
 
-    _loadItems();
+    if (newItem == null) { return; }
+
+    setState(() {
+      _groceryItems.add(newItem);
+    });
   }
 
   void _removeItem(int index) {
