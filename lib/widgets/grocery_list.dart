@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shopping_list/models/grocery_item.dart';
 import 'package:shopping_list/widgets/new_item.dart';
+import 'package:shopping_list/http/shopping_list.dart';
 
 class GroceryList extends StatefulWidget {
   const GroceryList({super.key});
@@ -14,19 +15,15 @@ class _GroceryListState extends State<GroceryList> {
   final List<GroceryItem> _groceryItems = [];
 
   void _addItem() async {
-    final newItem = await Navigator.of(context).push<GroceryItem>(
+    await Navigator.of(context).push<GroceryItem>(
       MaterialPageRoute(
         builder: (ctx) => const NewItem(),
       ),
     );
 
-    if (newItem == null) {
-      return;
-    }
+    final groceryItems = await getGroceryItems();
 
-    setState(() {
-      _groceryItems.add(newItem);
-    });
+    print(groceryItems);
   }
 
   void _removeItem(int index) {

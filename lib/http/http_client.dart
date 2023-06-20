@@ -9,9 +9,9 @@ class HttpClient {
 
   final String baseUrl;
 
-  Future<http.Response> doPost(path, payload) async {
+  Future<http.Response> doPost(String path, Map payload) async {
     final response = await http.post(
-      getUrl(path),
+      _getUrl(path),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(payload),
     );
@@ -26,7 +26,21 @@ class HttpClient {
     return response;
   }
 
-  Uri getUrl(path) {
+  Future<http.Response> doGet(String path) async {
+    final response = await http.get(
+      _getUrl(path),
+    );
+
+    logInfo('HttpClient', [
+      'GET $baseUrl/$path',
+      'response status: ${response.statusCode}',
+      'response body: ${response.body}'
+    ]);
+
+    return response;
+  }
+
+  Uri _getUrl(path) {
     return Uri.https(baseUrl, path);
   }
 }
