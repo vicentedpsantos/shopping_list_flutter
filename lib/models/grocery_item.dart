@@ -21,7 +21,6 @@ class GroceryItem {
 
   Map get toMap {
     return {
-      'id': id,
       'name': name,
       'quantity': quantity,
       'category': category.title
