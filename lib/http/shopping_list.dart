@@ -14,10 +14,9 @@ Future<Map> createGroceryItem(GroceryItem groceryItem) async {
   return mapResponse;
 }
 
-Future<Map> getGroceryItems() async {
+Future<http.Response?> getGroceryItems() async {
   final response = await client.doGet(constants.shoppingListPath);
-  Map mapResponse = json.decode(response.body);
-  return mapResponse;
+  return response;
 }
 
 Future<http.Response> deleteGroceryItem(String id) async {

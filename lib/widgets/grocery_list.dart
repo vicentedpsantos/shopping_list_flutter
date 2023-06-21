@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:shopping_list/models/grocery_item.dart';
@@ -22,7 +23,17 @@ class _GroceryListState extends State<GroceryList> {
   }
 
   void _loadItems() async {
-    final groceryItems = await getGroceryItems();
+    final response = await getGroceryItems();
+
+    if (response?.body == 'null') {
+      setState((){
+        isLoading = false;
+      });
+
+      return;
+    }
+
+    Map groceryItems = json.decode(response!.body);
     final builtGroceryItems = GroceryItem.buildgroceryItems(groceryItems);
 
     setState(() {
