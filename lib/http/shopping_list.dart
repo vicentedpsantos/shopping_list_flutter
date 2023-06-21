@@ -19,3 +19,8 @@ Future<Map> getGroceryItems() async {
   Map mapResponse = json.decode(response.body);
   return mapResponse;
 }
+
+Future<http.Response> deleteGroceryItem(String id) async {
+  final response = await client.doDelete('shopping-list/$id.json');
+  return response;
+}

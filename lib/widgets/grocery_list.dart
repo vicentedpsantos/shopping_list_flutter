@@ -47,10 +47,20 @@ class _GroceryListState extends State<GroceryList> {
     });
   }
 
-  void _removeItem(int index) {
+  void _removeItem(GroceryItem item) async {
+    final index = _groceryItems.indexOf(item);
+
     setState(() {
-      _groceryItems.removeAt(index);
+      _groceryItems.remove(item);
     });
+
+    final response = await deleteGroceryItem(item.id);
+
+    if (response.statusCode >= 400) {
+      setState(() {
+        _groceryItems.insert(index, item);
+      });
+    }
   }
 
   @override
@@ -70,7 +80,7 @@ class _GroceryListState extends State<GroceryList> {
         itemCount: _groceryItems.length,
         itemBuilder: (ctx, index) => Dismissible(
           onDismissed: (direction) {
-            _removeItem(index);
+            _removeItem(_groceryItems[index]);
           },
           key: ValueKey(_groceryItems[index].id),
           child: ListTile(

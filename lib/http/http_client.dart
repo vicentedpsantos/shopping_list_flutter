@@ -40,6 +40,20 @@ class HttpClient {
     return response;
   }
 
+  Future<http.Response> doDelete(String path) async {
+    final response = await http.delete(
+      _getUrl(path),
+    );
+
+    logInfo('HttpClient', [
+      'DELETE $baseUrl/$path',
+      'response status: ${response.statusCode}',
+      'response body: ${response.body}'
+    ]);
+
+    return response;
+  }
+
   Uri _getUrl(path) {
     return Uri.https(baseUrl, path);
   }
