@@ -23,23 +23,23 @@ class _GroceryListState extends State<GroceryList> {
   }
 
   void _loadItems() async {
-    final response = await getGroceryItems();
+    try {
+      final response = await getGroceryItems();
 
-    if (response?.body == 'null') {
-      setState((){
+      Map groceryItems = json.decode(response!.body);
+      final builtGroceryItems = GroceryItem.buildgroceryItems(groceryItems);
+
+      setState(() {
+        _groceryItems = builtGroceryItems;
+        isLoading = false;
+      });
+    } catch (error) {
+      setState(() {
         isLoading = false;
       });
 
       return;
     }
-
-    Map groceryItems = json.decode(response!.body);
-    final builtGroceryItems = GroceryItem.buildgroceryItems(groceryItems);
-
-    setState(() {
-      _groceryItems = builtGroceryItems;
-      isLoading = false;
-    });
   }
 
   void _addItem() async {
